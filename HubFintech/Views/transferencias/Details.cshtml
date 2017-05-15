@@ -1,0 +1,42 @@
+﻿@model HubFintech.Models.transferencia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>transferencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorTransferencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorTransferencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conta.TipoConta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conta.TipoConta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conta1.TipoConta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conta1.TipoConta)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDTransferencia }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

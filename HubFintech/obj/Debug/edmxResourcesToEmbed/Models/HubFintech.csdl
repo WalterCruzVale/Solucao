@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HubFintech6Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Conta">
+    <Key>
+      <PropertyRef Name="IDConta" />
+    </Key>
+    <Property Name="IDConta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoConta" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ValorContav" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="IDPessoa" Type="Int32" />
+    <Property Name="SituacaoConta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="transferencias" Relationship="Self.FK_CONTA" FromRole="Conta" ToRole="transferencia" />
+    <NavigationProperty Name="transferencias1" Relationship="Self.FK_CONTA2" FromRole="Conta" ToRole="transferencia" />
+    <NavigationProperty Name="Pessoa" Relationship="Self.FK_PESSOA" FromRole="Conta" ToRole="Pessoa" />
+  </EntityType>
+  <EntityType Name="Pessoa">
+    <Key>
+      <PropertyRef Name="IDPessoa" />
+    </Key>
+    <Property Name="IDPessoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CNPJ" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+    <Property Name="CPF" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="RazaoSocial" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="NomeFantasia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="NomeCompleto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DataNascimento" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Contas" Relationship="Self.FK_PESSOA" FromRole="Pessoa" ToRole="Conta" />
+  </EntityType>
+  <EntityType Name="transferencia">
+    <Key>
+      <PropertyRef Name="IDTransferencia" />
+    </Key>
+    <Property Name="IDTransferencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDContaOrigem" Type="Int32" />
+    <Property Name="IDContaDestino" Type="Int32" />
+    <Property Name="ValorTransferencia" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Conta" Relationship="Self.FK_CONTA" FromRole="transferencia" ToRole="Conta" />
+    <NavigationProperty Name="Conta1" Relationship="Self.FK_CONTA2" FromRole="transferencia" ToRole="Conta" />
+  </EntityType>
+  <Association Name="FK_CONTA">
+    <End Role="Conta" Type="Self.Conta" Multiplicity="0..1" />
+    <End Role="transferencia" Type="Self.transferencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Conta">
+        <PropertyRef Name="IDConta" />
+      </Principal>
+      <Dependent Role="transferencia">
+        <PropertyRef Name="IDContaOrigem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTA2">
+    <End Role="Conta" Type="Self.Conta" Multiplicity="0..1" />
+    <End Role="transferencia" Type="Self.transferencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Conta">
+        <PropertyRef Name="IDConta" />
+      </Principal>
+      <Dependent Role="transferencia">
+        <PropertyRef Name="IDContaDestino" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PESSOA">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="0..1" />
+    <End Role="Conta" Type="Self.Conta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="IDPessoa" />
+      </Principal>
+      <Dependent Role="Conta">
+        <PropertyRef Name="IDPessoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HubFintech6Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Contas" EntityType="Self.Conta" />
+    <EntitySet Name="Pessoas" EntityType="Self.Pessoa" />
+    <EntitySet Name="transferencias" EntityType="Self.transferencia" />
+    <AssociationSet Name="FK_CONTA" Association="Self.FK_CONTA">
+      <End Role="Conta" EntitySet="Contas" />
+      <End Role="transferencia" EntitySet="transferencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTA2" Association="Self.FK_CONTA2">
+      <End Role="Conta" EntitySet="Contas" />
+      <End Role="transferencia" EntitySet="transferencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PESSOA" Association="Self.FK_PESSOA">
+      <End Role="Pessoa" EntitySet="Pessoas" />
+      <End Role="Conta" EntitySet="Contas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

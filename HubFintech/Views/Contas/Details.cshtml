@@ -1,0 +1,50 @@
+﻿@model HubFintech.Models.Conta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Conta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoConta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoConta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorContav)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorContav)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SituacaoConta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SituacaoConta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.CNPJ)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDConta }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
